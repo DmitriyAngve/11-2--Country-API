@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Noto Sans", sans-serif;
+}
+* .box {
+  width: 80%;
+  text-align: center;
+  padding: 10px;
+  margin: 10px auto;
+}
+.box img {
+  max-width: 100%;
+  width: 200px;
+}
+.box h2 {
+  text-transform: uppercase;
+}
+
+.pgs {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-block;
+  width: 50px;
+  color: white;
+  background-color: black;
+  text-align: center;
+}
