@@ -5,18 +5,37 @@
 body {
   font-family: "Noto Sans", sans-serif;
 }
+
 * .box {
   width: 80%;
   text-align: center;
   padding: 10px;
   margin: 10px auto;
+  cursor: pointer;
 }
+
 .box img {
   max-width: 100%;
   width: 200px;
 }
+
+.box:hover {
+  background-color: blanchedalmond;
+  cursor: pointer;
+}
+
 .box h2 {
   text-transform: uppercase;
+}
+
+.info {
+  width: 80%;
+  text-align: center;
+  padding: 10px;
+  font-size: 1.2em;
+  margin: 10px auto;
+  border: 1px solid #ddd;
+  border-radius: 10px;
 }
 
 .pgs {

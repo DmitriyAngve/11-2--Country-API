@@ -24,6 +24,28 @@ btn.addEventListener("click", (e) => {
     });
 });
 
+// Loads all properties
+function makeaPage(data) {
+  output.innerHTML = "";
+  const main = createNode(output, "div", "");
+  main.classList.add("info");
+  objOutput(data, main);
+}
+
+function objOutput(obj, parent) {
+  Object.keys(obj).forEach((key) => {
+    console.log(key); // object key
+    console.log(obj[key]); // value
+    console.log(typeof obj[key]); // check data types
+    let val = obj[key];
+
+    if (typeof val == "object") {
+      val = JSON.stringify(val);
+    }
+    createNode(parent, "div", val); // создаю список из всех свойств
+  });
+}
+
 // Load pages and pass in the data object into pages and then within console will output
 function loadPages(data) {
   output.innerHTML = "";
@@ -36,6 +58,7 @@ function loadPages(data) {
 // Output and create every country
 function pageEl(data) {
   console.log(data);
+
   const main = createNode(output, "div", "");
   main.classList.add("box");
   main.addEventListener("click", (e) => {
