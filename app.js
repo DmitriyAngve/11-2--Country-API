@@ -2,8 +2,6 @@ const btn = document.querySelector(".btn");
 const h1 = document.querySelector("h1");
 const output = document.querySelector(".output");
 const inputVal = document.querySelector(".val");
-
-// Object that we can group to different pages. Within this object, this can just be JSON and an object sitting with an object
 const page = { json: {}, page: 1, per: 10, arr: [] };
 
 // New URL
@@ -11,59 +9,28 @@ const page = { json: {}, page: 1, per: 10, arr: [] };
 // Old URL
 const baseurl = "https://restcountries.com/v2/";
 
-btn.textContent = "Load Pages";
-inputVal.style.display = "none";
-h1.textContent = "Load Country Info";
+btn.textContent = "Search by Name";
+h1.textContent = "Search Country Info";
+inputVal.value = "united";
 
 btn.addEventListener("click", (e) => {
   console.log("ready");
-  const para = "all";
+  const para = "name/" + inputVal.value;
   const url = baseurl + para;
   fetch(url)
     .then((rep) => rep.json())
     .then((data) => {
-      createPages(data);
+      loadPages(data);
     });
 });
 
-// Dynamically create pages. Split by 10 countries per page
-function createPages(data) {
-  page.arr.length = 0; // clear out the contents of an array
-  //   let tempArr = [];
-  //   let ptotal = data.length / page.per; // how many pages
-  //   console.log(ptotal);
-  for (let i = 0; i < data.length; i += page.per) {
-    let tempArr = data.slice(i, i + page.per);
-    //console.log(tempArr);
-    page.arr.push(tempArr);
-  }
-  loadPages();
-}
-
-function loadPagination() {
-  const main = createNode(output, "div", "");
-  for (let i = 0; i < page.arr.length; i++) {
-    const pg = createNode(main, "div", i + 1);
-    pg.classList.add("pgs");
-    if (page.page == i + 1) {
-      pg.style.backgroundColor = "red";
-    }
-    pg.addEventListener("click", (e) => {
-      console.log(i + 1);
-      page.page = i + 1;
-      loadPages();
-    });
-  }
-}
-
 // Load pages and pass in the data object into pages and then within console will output
-function loadPages() {
+function loadPages(data) {
   output.innerHTML = "";
-  console.log(page.arr, page.page);
-  page.arr[page.page - 1].forEach((el) => {
+  console.log(data);
+  data.forEach((el) => {
     pageEl(el);
   });
-  loadPagination();
 }
 
 // Output and create every country
@@ -71,9 +38,16 @@ function pageEl(data) {
   console.log(data);
   const main = createNode(output, "div", "");
   main.classList.add("box");
+  main.addEventListener("click", (e) => {
+    makeaPage(data);
+  });
 
   const title = createNode(main, "div", `<h2>${data.name}</h2>`);
   title.style.color = "red";
+
+  const title2 = createNode(main, "div", `${data.nativeName}`);
+
+  createNode(main, "div", `${data.subregion}`);
 
   const flag = createNode(main, "img", "");
   flag.setAttribute("src", data.flags.svg);
